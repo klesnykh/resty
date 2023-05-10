@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'superagent';
 
 import './App.scss';
 
@@ -10,34 +11,41 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App () {
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     data: null,
-  //     requestParams: {},
-  //   };
-  // }
 
   const [data, setData] = useState(null);
   const [requestParams, setRequestParams] = useState({});
 
   let callApi = (requestParams) => {
-    // mock output
-    const data = {
-      count: 2,
-      results: [
-        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-        {requestParams},
-      ],
-    };
-    setData(data);
     setRequestParams(requestParams);
   }
+
+  useEffect(() => {
+    console.log('hitting useEffect for changed requestParams');
+    console.log(requestParams);
+    async function getData(){
+      try {
+        console.log(requestParams)
+        let req = await fetch(requestParams.url);
+        // let req = await axios[requestParams.method](requestParams.url);
+        //console.log('after fetch');
+        let jsonData = await req.json();
+        //let jsonData = await req.body.json();
+        console.log(req);
+        let data = {
+          count: jsonData.count,
+          results: jsonData
+        }
+        setData(data);
+      } catch (e) {
+        console.log('ERROR FROM FETCH:', e);
+      }
+    }
+      
+    getData();
+  }, [requestParams]);
 
   return (
     <React.Fragment>

@@ -14,7 +14,7 @@ function Form (props) {
     const formData = {
       method: method,
       url: url,
-      textArea: textInput,
+      body: textInput,
     };
     props.handleApiCall(formData);
   }
