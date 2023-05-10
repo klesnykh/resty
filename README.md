@@ -1,4 +1,6 @@
-# UML
+# Resty
+
+[Live Site](https://lucent-cucurucho-acc433.netlify.app/)
 
 ![UML](./lab26uml.png)
 
