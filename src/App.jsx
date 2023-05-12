@@ -82,6 +82,7 @@ function App () {
         payload: historyUpdate
       })
     }
+    // eslint-disable-next-line
   }, [state.data]);
 
   const updateRequestParamsAction = (requestParams) => {
